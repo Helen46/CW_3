@@ -3,6 +3,7 @@ import operator
 from pathlib import Path
 
 from settings import AMT_OPERATIONS
+from src.classes import Operation
 
 
 def load_data(path: Path) -> list[dict]:
@@ -50,3 +51,23 @@ def create_short_list(operations: list[dict]) -> list[dict]:
     """
     slice_list = slice(AMT_OPERATIONS)
     return operations[slice_list]
+
+
+def get_operations_instances(operations: list[dict]) -> list[Operation]:
+    """
+    Создает экземпляр класса из списка со словарями
+    :param operations: list[dict]
+    :return: Список с экземплярами класса Operation
+    """
+    operations_instances = []
+    for operation in operations:
+        operations_instance = Operation(
+            date=operation["date"],
+            amount=operation["operationAmount"]["amount"],
+            currency_name=operation["operationAmount"]["currency"]["name"],
+            description=operation["description"],
+            from_=operation.get("from"),
+            to=operation["to"]
+        )
+        operations_instances.append(operations_instance)
+    return operations_instances
