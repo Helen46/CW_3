@@ -40,7 +40,6 @@ def create_sorted_list(operations: list[dict]) -> list[dict]:
         operations, key=operator.itemgetter("date"),
         reverse=True
     )
-    # filtered_list, key=lambda x: x.get("date")
 
 
 def create_short_list(operations: list[dict]) -> list[dict]:

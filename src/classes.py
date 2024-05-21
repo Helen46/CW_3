@@ -30,8 +30,8 @@ class Operation:
     def mask_payment_info(self, payment_info: str):
         """
         маскирует часть str
-        :param payment_info:
-        :return:
+        :param payment_info: строка с номером карты или счета
+        :return: строка с замаскироваными данными
         """
         info: list[str] = payment_info.split(" ")
         num_card = info.pop(-1)
@@ -40,9 +40,8 @@ class Operation:
         elif payment_info.startswith("Счет"):
             mask_card = "**" + num_card[-4:]
         else:
-            nun_symbol = (len(num_card) - 10) * "*"
-            mask_card = (num_card[0:4] + " " + num_card[4:6] + nun_symbol[0:2]
-                         + " " + nun_symbol[2:] + " " + num_card[-4:])
+            mask_card = (f"{num_card[0:4]} {num_card[4:6]}** "
+                         f"**** {num_card[-4:]}")
         info.append(mask_card)
         return " ".join(info)
 
